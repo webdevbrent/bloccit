@@ -1,7 +1,7 @@
 require 'random_data'
 
 # Create unique Post
-Post.find_or_create_by!(title: 'Unique Post Title', body: 'Unique Post Body')
+Post.find_or_create_by(title: 'Unique Post Title', body: 'Unique Post Body')
 
 # Create Posts
 50.times do
@@ -13,7 +13,7 @@ end
 posts = Post.all
 
 # Create unique comments
-Comment.find_or_create_by!(body: 'Unique Comment Body')
+Comment.find_or_create_by(body: 'Unique Comment Body')
 
 # Create Comments
 100.times do
@@ -32,7 +32,17 @@ end
   )
 end
 
+# Create Questions
+10.times do
+  Question.create!(
+    title: RandomData.random_sentence,
+    body: RandomData.random_paragraph,
+    resolved: false
+  )
+end
+
 puts 'Seed finished'
 puts "#{Post.count} posts created"
 puts "#{Comment.count} comments created"
-puts "#{Advertisement.count} advertisements"
+puts "#{Advertisement.count} advertisements created"
+puts "#{Question.count} questions created"
