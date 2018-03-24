@@ -1,0 +1,14 @@
+<h1>All Advertisements</h1>
+<% @advertisements.each do |advertisement| %>
+<h1>
+    <%= link_to advertisement.title, advertisement %>
+</h1>
+<p>
+    Copy: <%= advertisement.copy.truncate(100, separator: '.') %>
+</p>
+
+<p>
+    Price: $<%= advertisement.price.to_d %>
+</p>
+    
+<% end %>
