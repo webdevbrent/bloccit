@@ -1,7 +1,7 @@
 require 'random_data'
 
 # Create unique Post
-Post.find_or_create_by(title: 'Unique Post Title', body: 'Unique Post Body')
+Post.find_or_create_by!(title: 'Unique Post Title', body: 'Unique Post Body')
 
 # Create Posts
 50.times do
@@ -13,7 +13,7 @@ end
 posts = Post.all
 
 # Create unique comment
-Comment.find_or_create_by(post: posts.sample, body: 'Unique Comment Body')
+Comment.find_or_create_by!(body: 'Unique Comment Body')
 
 # Create Comments
 100.times do
