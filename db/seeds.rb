@@ -12,7 +12,7 @@ Post.find_or_create_by!(title: 'Unique Post Title', body: 'Unique Post Body')
 end
 posts = Post.all
 
-# Create unique comment
+# Create unique comments
 Comment.find_or_create_by!(body: 'Unique Comment Body')
 
 # Create Comments
