@@ -32,11 +32,21 @@ Comment.find_or_create_by(body: 'Unique Comment Body')
   )
 end
 
-# Create Advertisements
+# # Create Advertisements
+# 10.times do
+#   Advertisement.create!(
+#     title: RandomData.random_sentence,
+#     copy: RandomData.random_paragraph,
+#     price: 100
+#   )
+# end
+
+# Create Sponsored Posts
 10.times do
-  Advertisement.create!(
+  SponsoredPost.create!(
+    topic: topics.sample,
     title: RandomData.random_sentence,
-    copy: RandomData.random_paragraph,
+    body: RandomData.random_paragraph,
     price: 100
   )
 end
@@ -56,3 +66,4 @@ puts "#{Post.count} posts created"
 puts "#{Comment.count} comments created"
 puts "#{Advertisement.count} advertisements created"
 puts "#{Question.count} questions created"
+puts "#{SponsoredPost.count} sponsored posts created"
