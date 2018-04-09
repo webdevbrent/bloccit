@@ -16,3 +16,12 @@
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+.gravatar {
+    padding: 5px;
+}
+
+.display-current-user-name {
+    margin-left: 5px;
+    border-bottom: 2px solid #000;
+}

@@ -14,7 +14,21 @@
       <li><%= link_to "Bloccit", root_path %></li>
       <li><%= link_to "Topics", topics_path %></li>
       <li><%= link_to "About", about_path %></li>
-      <li class="pull-right"><%= link_to "Sign up", new_user_path %></li>
+      <% if current_user %>
+           <li class="pull-right">
+           <%= image_tag avatar_url(current_user) %>
+           </li>
+           <div class="pull-right">
+           <span class="display-current-user-name">
+           <%= current_user.name %>
+           </span>
+            <br>
+           <%= link_to "Sign Out", session_path(current_user), method: :delete, class: 'gravatar pull-right' %>
+           </div>
+      <% else %>
+           <li class="pull-right"><%= link_to "Sign In", new_session_path %></li>
+           <li class="pull-right"><%= link_to "Sign Up", new_user_path %></li>
+      <% end %>
     </ul>
     <% if flash[:notice] %>
          <div class="alert alert-success">
