@@ -43,6 +43,8 @@ gem 'bcrypt'
 
 gem 'thor', '0.19.1'
 gem 'bootstrap-sass'
+
+gem 'faker', '~> 1.8', '>= 1.8.7'
 group :development do
   gem 'listen', '~> 3.0.5'
 end
