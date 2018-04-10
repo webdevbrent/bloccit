@@ -1,5 +1,8 @@
 class PostsController < ApplicationController
   before_action :require_sign_in, except: :show
+  # Check role of signed-in user. If current_user isn't autorized based on role. Redirect to post show view
+  before_action :authorize_user_to_update, except: [:show, :new, :create, :destroy]
+  before_action :authorize_user_to_delete, except: [:show, :new, :create, :edit, :update]
   def show
     @post = Post.find(params[:id])
   end
@@ -57,4 +60,22 @@ class PostsController < ApplicationController
   def post_params
     params.require(:post).permit(:title, :body)
   end
+
+  # Redirect the user unless they own the post they are attempting to modify or they are an admin
+  def authorize_user_to_update
+    post = Post.find(params[:id])
+    unless current_user == post.user || current_user.admin? || current_user.moderator?
+      flash[:alert] = 'You must be an admin to do that!'
+      redirect_to [post.topic, post]
+    end
+  end
+
+  def authorize_user_to_delete
+    post = Post.find(params[:id])
+    unless current_user == post.user || current_user.admin?
+      flash[:alert] = 'You must be an admin to do that!'
+      redirect_to [post.topic, post]
+    end
+  end
+
 end

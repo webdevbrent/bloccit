@@ -62,10 +62,27 @@ end
   )
 end
 
-user = User.first
-user.update_attributes!(
+# Create and admin user
+admin = User.create!(
+  name: 'Brent Phillips',
   email: 'poposhub@gmail.com',
-  password: '123456'
+  password: '123456',
+  role: 'admin'
+)
+
+# Create a member
+member = User.create!(
+  name: 'Member User',
+  email: 'member@example.com',
+  password: 'helloworld'
+)
+
+# Create a moderator
+moderator = User.create!(
+  name: 'Moderator User',
+  email: 'mod@example.com',
+  password: '123456',
+  role: 'moderator'
 )
 
 puts 'Seed finished'

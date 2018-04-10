@@ -1,4 +1,14 @@
 class TopicsController < ApplicationController
+
+  # Redirects Guest users who attempt to access controller actions other than index and show
+  before_action :require_sign_in, except: [:index, :show]
+
+  # Check the role for admin
+  before_action :authorize_user_to_delete, except: [:index, :show, :edit, :update]
+
+  # Check the role for moderator
+  before_action :authorize_user_to_update, except: [:index, :show, :new, :create, :destroy]
+
   def index
     @topics = Topic.all
   end
@@ -56,5 +66,19 @@ class TopicsController < ApplicationController
 
   def topic_params
     params.require(:topic).permit(:name, :description, :public)
+  end
+
+  def authorize_user_to_delete
+    unless current_user.admin?
+      flash[:alert] = 'You must be an admin to do that!'
+      redirect_to topics_path
+    end
+  end
+
+  def authorize_user_to_update
+    unless current_user.admin? || current_user.moderator?
+      flash[:alert] = 'You must be an admin or moderator to do that'
+      redirect_to topics_path
+    end
   end
 end
