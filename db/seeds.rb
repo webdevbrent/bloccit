@@ -24,12 +24,20 @@ topics = Topic.all
 
 # Create Posts
 50.times do
-  Post.create!(
+  post = Post.create!(
     user:   users.sample,
     topic:  topics.sample,
-    title:  Faker::Lorem.sentence,
-    body:   Faker::Lorem.paragraph
+    title:  RandomData.random_sentence,
+    body:   RandomData.random_paragraph
   )
+
+# we update the time a post was created. 
+# This makes our seeded data more realistic and will allow us to see our ranking algorithm in action 
+  post.update_attribute(:created_at, rand(10.minutes .. 1.year).ago)
+
+# we create between one and five votes for each post. [-1, 1].sample randomly 
+# creates either an up vote or a down vote.
+  rand(1..5).times { post.votes.create!(value: [-1, 1].sample, user: users.sample) }
 end
 posts = Post.all
 
@@ -93,3 +101,5 @@ puts "#{Post.count} posts created"
 puts "#{Comment.count} comments created"
 puts "#{Advertisement.count} advertisements created"
 puts "#{Question.count} questions created"
+puts "#{Vote.count} votes created"
+
