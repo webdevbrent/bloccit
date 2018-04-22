@@ -2,6 +2,7 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :votes, dependent: :destroy
+  has_many :favorites, dependent: :destroy
   
   before_save { self.email = email.downcase if email.present? }
   before_save { self.role ||= :member }
@@ -28,4 +29,13 @@ class User < ApplicationRecord
       self.name = name_array.join(' ')
     end
   end
+
+  # This method takes a post object and uses where to retrieve the user's 
+  # favorites with a post_id that matches post.id. If the user has favorited post 
+  # it will return an array of one item. If they haven't favorited post it will return an empty array. 
+  # Calling first on the array will return either the favorite or nil depending on whether they favorited the post.
+  def favorite_for(post)
+    favorites.where(post_id: post.id).first
+  end
+
 end

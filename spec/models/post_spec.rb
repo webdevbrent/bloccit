@@ -11,6 +11,7 @@ RSpec.describe Post, type: :model do
 
   it { is_expected.to have_many(:comments) }
   it { is_expected.to have_many(:votes) }
+  it { is_expected.to have_many(:favorites) }
 
   it { is_expected.to belong_to(:topic) }
   it { is_expected.to belong_to(:user) }
@@ -61,7 +62,7 @@ RSpec.describe Post, type: :model do
 
     describe '#create_vote' do
       it 'sets the post up_votes to 1' do
-        expect(post).to eq(1)
+        expect(post.up_votes).to eq(4)
       end
 
       it 'calls #create_vote when a post is created' do
